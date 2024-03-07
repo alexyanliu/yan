@@ -3,6 +3,7 @@ package com.mycompany.booking.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.mycompany.booking.Exception.DuplicateBookingException;
 import com.mycompany.booking.model.BookingDecorateInfo;
 import com.mycompany.booking.model.BookingInfo;
 import com.mycompany.booking.service.BookingPersistService;
@@ -21,7 +22,7 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public void addBookingInfo(BookingInfo bookingInfo) {
+	public void addBookingInfo(BookingInfo bookingInfo) throws DuplicateBookingException {
 		bookingPersistService.saveBookingInfo(bookingInfo);
 	}
 

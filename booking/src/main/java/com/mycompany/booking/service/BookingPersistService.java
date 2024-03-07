@@ -2,6 +2,7 @@ package com.mycompany.booking.service;
 
 import java.util.List;
 
+import com.mycompany.booking.Exception.DuplicateBookingException;
 import com.mycompany.booking.model.BookingInfo;
 
 public interface BookingPersistService {
@@ -10,7 +11,7 @@ public interface BookingPersistService {
 	 * 
 	 * @param bookingInfo the booking info.
 	 */
-	public void saveBookingInfo(BookingInfo bookingInfo);
+	public void saveBookingInfo(BookingInfo bookingInfo) throws DuplicateBookingException;
 
 	/**
 	 * Get booking info list.

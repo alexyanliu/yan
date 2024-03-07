@@ -59,7 +59,7 @@ public class BookingInfo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customerName, hour, minute, startDate, tableSize);
+		return Objects.hash(customerName, hour, minute, startDate);
 	}
 
 	@Override
@@ -72,8 +72,7 @@ public class BookingInfo {
 			return false;
 		BookingInfo other = (BookingInfo) obj;
 		return Objects.equals(customerName, other.customerName) && Objects.equals(hour, other.hour)
-				&& Objects.equals(minute, other.minute) && Objects.equals(startDate, other.startDate)
-				&& Objects.equals(tableSize, other.tableSize);
+				&& Objects.equals(minute, other.minute) && Objects.equals(startDate, other.startDate);
 	}
 
 	@Override

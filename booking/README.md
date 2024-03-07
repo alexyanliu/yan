@@ -15,7 +15,8 @@ ok
 2. Get all bookings:
 
 Request:
-http://localhost:8080/booking/list
+curl --location 'http://localhost:8080/booking/list' \
+--header 'token: owner'
 
 Response:
 [ {

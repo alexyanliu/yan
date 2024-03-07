@@ -8,12 +8,14 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.booking.Exception.DuplicateBookingException;
 import com.mycompany.booking.model.BookingInfo;
 import com.mycompany.booking.service.BookingService;
 import com.mycompany.booking.service.impl.BookingPersistInMemoryService;
 import com.mycompany.booking.service.impl.BookingServiceImpl;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -43,7 +45,11 @@ public class Booking {
 		@GET
 		@Path("/list")
 		@Produces("application/json")
-		public String getBookingList() throws JsonProcessingException {
+		public String getBookingList(@HeaderParam("token") String token) throws JsonProcessingException {
+			if (!"owner".equals(token)) {
+				return "no acess to it!";
+			}
+			
 			if (bookingService.getBookingInfoList() == null) {
 				return null;
 			}
@@ -58,7 +64,11 @@ public class Booking {
 		public String addBookingInfo(@PathParam("customerName") String customerName,
 				@PathParam("tableSize") int tableSize, @PathParam("startDate") String startDate,
 				@PathParam("hour") int hour, @PathParam("minute") int minute) {
-			bookingService.addBookingInfo(new BookingInfo(customerName, tableSize, startDate, hour, minute));
+			try {
+				bookingService.addBookingInfo(new BookingInfo(customerName, tableSize, startDate, hour, minute));
+			} catch (DuplicateBookingException e) {
+				return e.getMessage();
+			}
 
 			return "ok";
 		}
